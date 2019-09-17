@@ -9,11 +9,11 @@ message: A Jenkins service has been created in your project.  Log into Jenkins w
 metadata:
   annotations:
     description: |-
-      Jenkins service, without persistent storage.
+      Project - Jenkins service, without persistent storage.
 
       WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
     iconClass: icon-jenkins
-    openshift.io/display-name: Jenkins master s2i (Ephemeral) 
+    openshift.io/display-name: Jenkins project s2i (Ephemeral) 
     openshift.io/documentation-url: https://docs.okd.io/latest/using_images/other_images/jenkins.html
     openshift.io/long-description: This template deploys a Jenkins server capable
       of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login.  The
@@ -25,7 +25,7 @@ metadata:
     tags: instant-app,jenkins
   labels:
     samples.operator.openshift.io/managed: "true"
-  name: jenkins-master
+  name: jenkins-project
 objects:
 - apiVersion: v1
   kind: Route
@@ -159,8 +159,8 @@ objects:
         - jenkins
         from:
           kind: ImageStreamTag
-          name: ${JENKINS_IMAGE_STREAM_TAG}
-          namespace: openshift
+          name: jenkins:masters2i
+          namespace: jenkins-profile1
         lastTriggeredImage: ""
       type: ImageChange
     - type: ConfigChange
