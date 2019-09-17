@@ -27,6 +27,21 @@ metadata:
     samples.operator.openshift.io/managed: "true"
   name: jenkins-project
 objects:
+- apiVersion: rbac.authorization.k8s.io/v1
+  kind: RoleBinding
+  metadata:
+    annotations:
+      openshift.io/description: Allows all pods in this namespace to pull images from
+        this namespace.  It is auto-managed by a controller; remove subjects to disable.
+    name: system:image-pullers
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: system:image-puller
+  subjects:
+  - apiGroup: rbac.authorization.k8s.io
+    kind: Group
+    name: system:serviceaccounts:${CURRENT_NAMESPACE}  
 - apiVersion: v1
   kind: Route
   metadata:
@@ -211,6 +226,9 @@ parameters:
   displayName: Jenkins ImageStream Namespace
   name: NAMESPACE
   value: openshift
+- description: The OpenShift Namespace where the Jenkins ImageStream resides.
+  displayName: Current Namespace
+  name: CURRENT_NAMESPACE
 - description: Whether to perform memory intensive, possibly slow, synchronization
     with the Jenkins Update Center on start.  If true, the Jenkins core update monitor
     and site warnings monitor are disabled.
