@@ -48,41 +48,6 @@ objects:
       description: Keeps track of changes in the application image
     name: jenkins      
 - apiVersion: v1
-  kind: BuildConfig
-  metadata:
-    labels:
-      app: jenkins
-    name: jenkins
-  spec:
-    output:
-      to:
-        kind: ImageStreamTag
-        name: jenkins:masters2i
-        namespace: ${NAMESPACE}
-    resources:
-      limits:
-        memory: ${MEMORY_LIMIT}
-    source:
-      contextDir: ${CONTEXT_DIR}
-      git:
-        uri: ${SOURCE_REPOSITORY_URL}
-        ref: ${SOURCE_REPOSITORY_REF}
-      secrets: []
-      type: Git
-    strategy:
-      sourceStrategy:
-        from:
-          kind: ImageStreamTag
-          name: jenkins:latest
-          namespace: openshift
-      type: Source
-    triggers:
-    - type: ConfigChange
-    - imageChange: {}
-      type: ImageChange
-  status:
-    lastVersion: 0      
-- apiVersion: v1
   kind: DeploymentConfig
   metadata:
     annotations:
