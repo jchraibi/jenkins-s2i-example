@@ -13,7 +13,7 @@ metadata:
 
       WARNING: Any data stored will be lost upon pod destruction. Only use this template for testing.
     iconClass: icon-jenkins
-    openshift.io/display-name: Jenkins master s2i (Ephemeral) 
+    openshift.io/display-name: Jenkins master of masters - s2i (Ephemeral) 
     openshift.io/documentation-url: https://docs.okd.io/latest/using_images/other_images/jenkins.html
     openshift.io/long-description: This template deploys a Jenkins server capable
       of managing OpenShift Pipeline builds and supporting OpenShift-based oauth login.  The
@@ -25,7 +25,7 @@ metadata:
     tags: instant-app,jenkins
   labels:
     samples.operator.openshift.io/managed: "true"
-  name: jenkins-master
+  name: jenkins-master-of-masters
 objects:
 - apiVersion: v1
   kind: Route
@@ -57,8 +57,8 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: jenkins:masters2i
-        namespace: ${NAMESPACE}
+        name: jenkins:master-of-masters-s2i
+        namespace: jenkins-master-of-masters
     resources:
       limits:
         memory: ${MEMORY_LIMIT}
@@ -93,7 +93,7 @@ objects:
     selector:
       name: ${JENKINS_SERVICE_NAME}
     strategy:
-      type: Recreate
+      type: Rolling
     template:
       metadata:
         labels:
@@ -159,8 +159,8 @@ objects:
         - jenkins
         from:
           kind: ImageStreamTag
-          name: ${JENKINS_IMAGE_STREAM_TAG}
-          namespace: openshift
+          name: jenkins:jenkins-master-of-masters-s2i
+          namespace: jenkins-master-of-masters
         lastTriggeredImage: ""
       type: ImageChange
     - type: ConfigChange
