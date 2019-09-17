@@ -1,7 +1,7 @@
 #!/bin/bash
 
-oc delete project jenkins-master
+oc delete project jenkins-master-of-masters
 read
-oc new-project jenkins-master
+oc new-project jenkins-master-of-masters
 read
-oc create -n jenkins-master -f jenkins-masters2i.yaml
+oc create -n jenkins-master-of-masters -f jenkins-master-of-masters-s2i.yaml

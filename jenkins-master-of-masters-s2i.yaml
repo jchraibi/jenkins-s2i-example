@@ -159,7 +159,7 @@ objects:
         - jenkins
         from:
           kind: ImageStreamTag
-          name: jenkins:jenkins-master-of-masters-s2i
+          name: jenkins:master-of-masters-s2i
           namespace: jenkins-master-of-masters
         lastTriggeredImage: ""
       type: ImageChange
@@ -251,7 +251,7 @@ parameters:
     and site warnings monitor are disabled.
   displayName: Disable memory intensive administrative monitors
   name: DISABLE_ADMINISTRATIVE_MONITORS
-  value: "false"
+  value: "true"
 - description: Name of the ImageStreamTag to be used for the Jenkins image.
   displayName: Jenkins ImageStreamTag
   name: JENKINS_IMAGE_STREAM_TAG
@@ -261,4 +261,4 @@ parameters:
     is bypassed. By default, certificate check is enforced.
   displayName: Allows use of Jenkins Update Center repository with invalid SSL certificate
   name: JENKINS_UC_INSECURE
-  value: "false"
+  value: "true"
