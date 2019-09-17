@@ -85,7 +85,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: jenkins:latest
+        name: jenkins:masters2i
     resources:
       limits:
         memory: ${MEMORY_LIMIT}
@@ -162,5 +162,5 @@ objects:
         - jenkins
         from:
           kind: ImageStreamTag
-          name: jenkins:latest
+          name: jenkins:masters2i
       type: ImageChange
