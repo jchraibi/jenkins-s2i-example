@@ -139,8 +139,8 @@ objects:
         - jenkins
         from:
           kind: ImageStreamTag
-          name: jenkins:masters2i
-          namespace: jenkins-profile1
+          name: jenkins:master-of-masters-s2i
+          namespace: jenkins-master-of-masters
         lastTriggeredImage: ""
       type: ImageChange
     - type: ConfigChange
@@ -229,6 +229,8 @@ parameters:
 - description: The OpenShift Namespace where the Jenkins ImageStream resides.
   displayName: Current Namespace
   name: CURRENT_NAMESPACE
+  value: metadata.namespace
+  required: true
 - description: Whether to perform memory intensive, possibly slow, synchronization
     with the Jenkins Update Center on start.  If true, the Jenkins core update monitor
     and site warnings monitor are disabled.
@@ -238,7 +240,7 @@ parameters:
 - description: Name of the ImageStreamTag to be used for the Jenkins image.
   displayName: Jenkins ImageStreamTag
   name: JENKINS_IMAGE_STREAM_TAG
-  value: jenkins:2
+  value: jenkins:master-of-masters-s2i
 - description: Whether to allow use of a Jenkins Update Center that uses invalid certificate
     (self-signed, unknown CA). If any value other than 'false', certificate check
     is bypassed. By default, certificate check is enforced.

@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  creationTimestamp: "2019-09-17T10:20:35Z"
+  generation: 3
+  labels:
+    app: jenkins-ephemeral
+  name: jenkins
+  namespace: jenkins-monitoring
+  resourceVersion: "477383"
+  selfLink: /apis/monitoring.coreos.com/v1/namespaces/jenkins-monitoring/servicemonitors/jenkins
+  uid: c992fb15-d934-11e9-991e-0050568ed062
+spec:
+  endpoints:
+  - interval: 10s
+    path: /prometheus
+    port: web
+  namespaceSelector:
+    any: true
+  selector:
+    matchLabels:
+      app: jenkins-ephemeral
